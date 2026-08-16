@@ -1,0 +1,442 @@
+/* ── reset ───────────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  /* keep content out of the notch and away from the home indicator */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+input,
+button,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* Safari zooms the whole page when a field below 16px receives focus — which
+   would break the layout every single time you log a set. */
+input {
+  font-size: max(16px, var(--text-base));
+}
+
+/* ── primitives ──────────────────────────────────────────────────────────── */
+
+.label {
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+.wordmark {
+  font-family: var(--font-dot);
+  font-size: var(--text-lg);
+  letter-spacing: var(--track-wordmark);
+  text-transform: uppercase;
+  /* letter-spacing also trails the last glyph — pull it back so the mark
+     stays optically centred */
+  margin-right: calc(var(--track-wordmark) * -1);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.field input {
+  width: 100%;
+  min-height: var(--tap);
+  padding: var(--sp-3);
+  background: var(--bg-raised);
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius);
+  font-family: var(--font-num);
+}
+
+.field input:focus-visible {
+  outline: none;
+  border-color: var(--fg-dim);
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--tap);
+  padding: var(--sp-3) var(--sp-4);
+  border: var(--hair) solid var(--fg);
+  border-radius: var(--radius);
+  background: var(--fg);
+  color: var(--bg);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  background: transparent;
+  border-color: var(--line-strong);
+  color: var(--fg-faint);
+  cursor: default;
+}
+
+.btn-quiet {
+  background: transparent;
+  border-color: var(--line-strong);
+  color: var(--fg-dim);
+}
+
+.error {
+  font-size: var(--text-sm);
+  color: var(--accent);
+}
+
+/* A row of dots — the one piece of pure decoration, used as a divider. */
+.dots {
+  height: 3px;
+  background-image: radial-gradient(
+    circle at center,
+    var(--line-strong) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 8px 3px;
+}
+
+/* ── login ───────────────────────────────────────────────────────────────── */
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sp-6);
+  max-width: 22rem;
+  min-height: 100%;
+  margin-inline: auto;
+  padding: var(--sp-6) var(--sp-5);
+}
+
+.login form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.login header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+/* ── centred single-message screens ──────────────────────────────────────── */
+
+.centered {
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+}
+
+/* ── screen scaffold ─────────────────────────────────────────────────────── */
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  max-width: 30rem;
+  margin-inline: auto;
+  padding: var(--sp-5) var(--sp-4) var(--sp-8);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  min-height: var(--tap);
+}
+
+.navlinks {
+  display: flex;
+  gap: var(--sp-4);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.title {
+  font-size: var(--text-lg);
+  font-weight: 500;
+}
+
+/* ── rows ────────────────────────────────────────────────────────────────── */
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list > li + li {
+  border-top: var(--hair) solid var(--line);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  min-height: var(--tap);
+  padding-block: var(--sp-2);
+}
+
+.row-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.row-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--font-num);
+  font-size: var(--text-sm);
+  color: var(--fg-dim);
+  text-align: right;
+}
+
+/* several sets on one line: "12 × 60 · 10 × 65 · 8 × 70" */
+.sets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--sp-1) var(--sp-3);
+  font-family: var(--font-num);
+  font-size: var(--text-sm);
+  color: var(--fg-dim);
+}
+
+.sets > span + span::before {
+  content: '· ';
+  color: var(--fg-faint);
+}
+
+.row-actions {
+  display: flex;
+  gap: var(--sp-3);
+}
+
+.row-actions .btn {
+  flex: 1;
+}
+
+/* ── panel ───────────────────────────────────────────────────────────────── */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--sp-4);
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-raised);
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+/* ── stepper ─────────────────────────────────────────────────────────────── */
+
+.stepper {
+  display: grid;
+  grid-template-columns: var(--tap) 1fr var(--tap);
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.stepper button {
+  min-height: var(--tap);
+  border: none;
+  background: transparent;
+  color: var(--fg-dim);
+  font-size: var(--text-lg);
+  cursor: pointer;
+}
+
+.stepper button:active {
+  background: var(--line);
+  color: var(--fg);
+}
+
+.stepper input {
+  min-height: var(--tap);
+  border: none;
+  border-inline: var(--hair) solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  text-align: center;
+  font-family: var(--font-num);
+}
+
+.stepper input:focus-visible {
+  outline: none;
+  background: var(--bg-raised);
+}
+
+/* ── segmented control ───────────────────────────────────────────────────── */
+
+.seg {
+  display: grid;
+  grid-auto-flow: column;
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.seg button {
+  min-height: var(--tap);
+  border: none;
+  background: transparent;
+  color: var(--fg-dim);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.seg button + button {
+  border-left: var(--hair) solid var(--line);
+}
+
+.seg .seg-on {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+/* ── small text states ───────────────────────────────────────────────────── */
+
+.empty,
+.pending {
+  font-size: var(--text-sm);
+  color: var(--fg-faint);
+}
+
+/* The one place the accent is allowed: a set that beat everything before it. */
+.record {
+  color: var(--accent);
+}
+
+.link-quiet,
+.link-danger {
+  min-width: var(--tap);
+  min-height: var(--tap);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.link-quiet {
+  color: var(--fg-faint);
+  font-size: var(--text-lg);
+}
+
+.link-danger {
+  color: var(--accent);
+  font-size: var(--text-micro);
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+}
+
+/* ── progress line ───────────────────────────────────────────────────────── */
+
+.spark {
+  width: 8rem;
+  height: 2rem;
+}
+
+/* ── history day ─────────────────────────────────────────────────────────── */
+
+.day > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  min-height: var(--tap);
+  list-style: none;
+  cursor: pointer;
+}
+
+.day > summary::-webkit-details-marker {
+  display: none;
+}
+
+.day .row {
+  padding-left: var(--sp-4);
+  border-top: var(--hair) solid var(--line);
+}
+
+/* ── editing ─────────────────────────────────────────────────────────────── */
+
+/* A button that carries no chrome — used where a row or a label is the target
+   but the element still has to be a real button for keyboard and screen
+   readers. */
+.link-plain {
+  padding: 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.titlerow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+}
+
+/* The input panel does double duty; when it edits an existing set it has to be
+   unmistakably different from the one that appends a new one. */
+.panel-editing {
+  border-color: var(--fg-faint);
+}
+
+.row-active {
+  background: var(--bg-raised);
+}
+
+.btn-danger {
+  border-color: var(--accent);
+  background: transparent;
+  color: var(--accent);
+}

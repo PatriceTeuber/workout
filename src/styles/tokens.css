@@ -1,0 +1,49 @@
+/* Every design decision in this app lives here. If a value is not in this file,
+   it should not appear in a component. */
+
+:root {
+  color-scheme: dark;
+
+  /* ── surface ─────────────────────────────────────────────────────────── */
+  --bg: #000000;
+  --bg-raised: #0b0b0b;
+  --line: #1c1c1c; /* hairlines: present, never loud */
+  --line-strong: #333333;
+
+  /* ── ink ─────────────────────────────────────────────────────────────── */
+  --fg: #f5f5f5;
+  --fg-dim: #8c8c8c;
+  --fg-faint: #4d4d4d;
+
+  /* ── the one accent ──────────────────────────────────────────────────── */
+  /* Reserved for personal records and the active set. Using it anywhere else
+     is what turns a Nothing-like interface into a normal dark theme. */
+  --accent: #d71921;
+
+  /* ── type ────────────────────────────────────────────────────────────── */
+  --font-ui: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-num: ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-dot: var(--font-num); /* swapped for the pixel face once chosen */
+
+  --text-micro: 0.6875rem; /* uppercase labels only */
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1.25rem;
+  --text-display: 2.25rem;
+
+  --track-micro: 0.16em;
+  --track-wordmark: 0.4em;
+
+  /* ── space ───────────────────────────────────────────────────────────── */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-8: 3rem;
+
+  --hair: 1px;
+  --radius: 2px;
+  --tap: 44px; /* nothing interactive is ever smaller than this */
+}
